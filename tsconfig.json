@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"], // Include DOM library for web APIs
+    "moduleResolution": "Node", // Use Node.js module resolution strategy
+    "baseUrl": ".", // Base URL for module resolution
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["node"], // Add this line to include Node.js types
+    "outDir": "dist",
+    "declaration": true, // Generate declaration files
+    "strict": true,
+    "skipLibCheck": true // Skip type checking of declaration files
+  },
+  "include": ["src/**/*"], // Include all TypeScript files in the src directory
+}
