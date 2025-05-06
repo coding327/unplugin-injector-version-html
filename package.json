@@ -10,9 +10,9 @@
   "module": "dist/webpack.mjs",
   "types": "dist/webpack.d.ts",
   "exports": {
-    ".": {
-      "require": "./dist/webpack.cjs",
-      "import": "./dist/webpack.mjs"
+    "./webpack": {
+      "import": "./dist/webpack.mjs",
+      "require": "./dist/webpack.js"
     }
   },
   "files": [
