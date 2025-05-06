@@ -8,7 +8,8 @@
   "exports": {
     "./webpack": {
       "import": "./dist/webpack.mjs",
-      "require": "./dist/webpack.js"
+      "require": "./dist/webpack.js",
+      "types": "./dist/webpack.d.ts"
     }
   },
   "files": [
