@@ -40,7 +40,7 @@ pnpm add unplugin-injector-version-html --save-dev
    Add the plugin to your `webpack.config.js`:
 
    ```javascript
-   const InjectorVersionPlugin = require("unplugin-injector-version-html");
+   const InjectorVersionPlugin = require("unplugin-injector-version-html/webpack");
 
    module.exports = {
      plugins: [

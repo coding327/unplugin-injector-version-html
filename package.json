@@ -5,9 +5,6 @@
   "scripts": {
     "build": "tsup"
   },
-  "main": "dist/webpack.js",
-  "module": "dist/webpack.mjs",
-  "types": "dist/webpack.d.ts",
   "exports": {
     "./webpack": {
       "import": "./dist/webpack.mjs",

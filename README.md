@@ -40,7 +40,7 @@ pnpm add unplugin-injector-version-html --save-dev
    在你的 `webpack.config.js` 中引入并使用插件：
 
    ```javascript
-   const InjectorVersionPlugin = require("unplugin-injector-version-html");
+   const InjectorVersionPlugin = require("unplugin-injector-version-html/webpack");
 
    module.exports = {
      plugins: [
