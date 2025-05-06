@@ -5,9 +5,15 @@
   "scripts": {
     "build": "tsup"
   },
+  "typesVersions": {
+    "*": {
+      "webpack": [
+        "./dist/webpack.d.ts"
+      ]
+    }
+  },
   "exports": {
     "./webpack": {
-      "types": "./dist/webpack.d.ts",
       "import": "./dist/webpack.mjs",
       "require": "./dist/webpack.js"
     }
