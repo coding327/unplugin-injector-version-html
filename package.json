@@ -7,9 +7,9 @@
   },
   "exports": {
     "./webpack": {
+      "types": "./dist/webpack.d.ts",
       "import": "./dist/webpack.mjs",
-      "require": "./dist/webpack.js",
-      "types": "./dist/webpack.d.ts"
+      "require": "./dist/webpack.js"
     }
   },
   "files": [
