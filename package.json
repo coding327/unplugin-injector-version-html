@@ -4,8 +4,8 @@
   "description": "This project demonstrates how to create a custom Webpack plugin that injects a version number into an HTML file during the build process.",
   "scripts": {
     "build": "tsup",
-    "prepublishOnly": "npm run build",
-    "publish": "npm version patch && npm publish --access public"
+    "prepublishOnly": "npm run build && npm version patch",
+    "publish": "npm publish --access public"
   },
   "main": "dist/webpack.cjs",
   "module": "dist/webpack.mjs",
