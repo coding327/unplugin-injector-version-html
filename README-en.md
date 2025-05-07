@@ -74,7 +74,7 @@ pnpm add unplugin-injector-version-html --save-dev
 | Option             | Type       | Default      | Description                       |
 | ------------------ | ---------- | ------------ | --------------------------------- |
 | `injectorFilename` | `string`   | `index.html` | The HTML file to inject into      |
-| `version`          | `string`   | `1.0.0`      | The version number to inject      |
+| `version`          | `string`   | `从 package.json 中获取`      | The version number to inject      |
 | `callback`         | `Function` | `undefined`  | Callback function after injection |
 
 ---

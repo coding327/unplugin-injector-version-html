@@ -74,7 +74,7 @@ pnpm add unplugin-injector-version-html --save-dev
 | 参数               | 类型       | 默认值       | 描述                             |
 | ------------------ | ---------- | ------------ | -------------------------------- |
 | `injectorFilename` | `string`   | `index.html` | 要注入版本号的 HTML 文件名       |
-| `version`          | `string`   | `1.0.0`      | 要注入的版本号                   |
+| `version`          | `string`   | `从 package.json 中获取`      | 要注入的版本号                   |
 | `callback`         | `Function` | `undefined`  | 构建完成后执行的回调函数（可选） |
 
 ---
