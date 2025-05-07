@@ -4,7 +4,6 @@ import type { Compilation, Compiler } from "webpack";
 
 function InjectorVersionPlugin(options: InjectorVersionOptions) {
   const {
-    callback,
     injectorFilename = "index.html",
     injectVersionJson = true, // 默认为 true，保持向后兼容
     environment = "production",
@@ -18,7 +17,7 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
   return {
     apply: (compiler: Compiler) => {
       // 确认环境
-      if (environment !== 'all' && process.env.NODE_ENV !== environment) return;
+      if (environment !== "all" && process.env.NODE_ENV !== environment) return;
 
       // 判断是否是 Webpack 5
       const isWebpack5 = Boolean(compiler.webpack?.version?.startsWith("5."));
@@ -26,13 +25,13 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
       // emit 是 Webpack 在生成资源并准备写入文件系统时触发的钩子，此时 compilation.assets 已经包含所有打包的资源
       compiler.hooks.emit.tapAsync(
         "InjectorVersionPlugin",
-        (compilation: Compilation, __callback) => {
+        (compilation: Compilation, callback) => {
           const indexHtml = compilation.assets[injectorFilename]
             .source()
             .toString();
 
           if (!indexHtml) {
-            __callback();
+            callback();
             return;
           }
 
@@ -61,14 +60,8 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
             }
           }
 
-          // 这里可以对 compilation.assets 进行操作，比如删除某些文件
-          callback &&
-            callback({
-              version,
-              compilation,
-            });
           // 继续执行下一个插件
-          __callback();
+          callback();
         }
       );
     },

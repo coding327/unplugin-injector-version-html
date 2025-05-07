@@ -25,6 +25,10 @@ export default defineConfig([
   createConfig({
     entry: ["src/webpack.ts"], // 入口文件
   }),
+  // 编译核心库 vite
+  createConfig({
+    entry: ["src/vite.ts"], // 入口文件
+  }),
   // 检测版本 core
   createConfig({
     entry: ["src/index.ts"], // 入口文件
