@@ -2,7 +2,7 @@ import createInjectorVersion from "./core/createInjectorVersion";
 import { InjectorVersionOptions } from "./types";
 import type { Compilation, Compiler } from "webpack";
 
-function InjectorVersionPlugin(options: InjectorVersionOptions) {
+function InjectorVersionPlugin(options?: InjectorVersionOptions) {
   const {
     injectorFilename = "index.html",
     injectVersionJson = true, // 默认为 true，保持向后兼容

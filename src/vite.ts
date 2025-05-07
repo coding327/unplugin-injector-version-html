@@ -2,7 +2,7 @@ import type { Plugin } from "vite";
 import { InjectorVersionOptions } from "./types";
 import { createInjectorVersion } from "./core";
 
-function InjectorVersionPlugin(options: InjectorVersionOptions): Plugin {
+function InjectorVersionPlugin(options?: InjectorVersionOptions): Plugin {
   const {
     injectorFilename = "index.html",
     injectVersionJson = true, // 默认为 true，保持向后兼容
