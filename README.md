@@ -2,13 +2,13 @@
 
 [英文文档](./README-en.md)
 
-`unplugin-injector-version-html` 是一个用于 Webpack 的插件，可以在构建过程中将版本号动态注入到 HTML 文件的 `<head>` 部分。
+`unplugin-injector-version-html` 是一个用于 Webpack 和 Vite 的插件，可以在构建过程中将版本号动态注入到 HTML 文件的 `<head>` 部分。
 
 ---
 
 ## 功能特性
 
-- **支持 Webpack**：兼容主流构建工具。
+- **支持 Webpack 和 Vite**：兼容主流构建工具。
 - **动态注入版本号**：在构建时将版本号插入到 HTML 文件中。
 - **易于配置**：支持自定义版本号和其他选项。
 - **类型安全**：使用 TypeScript 开发，提供完整的类型声明。
@@ -50,9 +50,6 @@ pnpm add unplugin-injector-version-html --save-dev
           version: "1.0.0", // 自定义版本号，不提供则从 package.json 获取
           injectVersionJson: true, // 是否在输出目录生成 version.json 文件
           environment: "production", // 插件生效的环境，可选 'development', 'production', 'all'
-          callback: ({ version, compilation }) => {
-            console.log(`版本号 ${version} 已成功注入！`);
-          },
         }),
       ],
     };
@@ -78,15 +75,62 @@ pnpm add unplugin-injector-version-html --save-dev
 
 ---
 
+### 在 Vite 中使用
+
+1.  **配置 Vite 插件**：
+
+    在你的 `vite.config.js` 或 `vite.config.ts` 中引入并使用插件：
+
+    ```typescript
+    // vite.config.ts
+    import { defineConfig } from "vite";
+    import InjectorVersionPlugin from "unplugin-injector-version-html/vite";
+
+    export default defineConfig({
+      plugins: [
+        InjectorVersionPlugin({
+          // injectorFilename: "index.html", // 在 Vite 中，这通常是默认的 HTML 文件
+          version: "1.0.0", // 自定义版本号，不提供则从 package.json 获取
+          injectVersionJson: true, // 是否在输出目录生成 version.json 文件
+          environment: "production", // 插件生效的环境，可选 'development', 'production', 'all'
+        }),
+      ],
+    });
+    ```
+
+2.  **运行构建**：
+
+    ```bash
+    npm run build
+    # 或者
+    # vite build
+    ```
+
+    构建完成后，你的主 HTML 文件（通常是 `index.html`）的 `<head>` 部分会包含注入的版本号元标签。
+
+    如果 `injectVersionJson` 设置为 `true` (默认)，则在构建输出的根目录 (通常是 `dist`) 会生成一个 `version.json` 文件。
+
+---
+
 ## Webpack 插件配置选项
 
-| 参数                | 类型                                                              | 默认值                 | 描述                                                                                         |
-| ------------------- | ----------------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------- |
-| `injectorFilename`  | `string`                                                          | `index.html`           | 要注入版本号的 HTML 文件名                                                                   |
-| `version`           | `string`                                                          | 从 `package.json` 获取 | 要注入的版本号。如果未提供，则尝试从项目的 `package.json` 中读取。                           |
-| `injectVersionJson` | `boolean`                                                         | `true`                 | 是否在构建输出的根目录生成 `version.json` 文件。                                             |
-| `environment`       | `'development' \| 'production' \| 'all'`                          | `production`           | 插件运行的环境。只有当 `process.env.NODE_ENV` 与此匹配时插件才会执行（`all` 表示始终执行）。 |
-| `callback`          | `(params: { version: string; compilation: Compilation }) => void` | `undefined`            | 构建完成后执行的回调函数（可选）。                                                           |
+| 参数                | 类型                                     | 默认值                 | 描述                                                                                         |
+| ------------------- | ---------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------- |
+| `injectorFilename`  | `string`                                 | `index.html`           | 要注入版本号的 HTML 文件名                                                                   |
+| `version`           | `string`                                 | 从 `package.json` 获取 | 要注入的版本号。如果未提供，则尝试从项目的 `package.json` 中读取。                           |
+| `injectVersionJson` | `boolean`                                | `true`                 | 是否在构建输出的根目录生成 `version.json` 文件。                                             |
+| `environment`       | `'development' \| 'production' \| 'all'` | `production`           | 插件运行的环境。只有当 `process.env.NODE_ENV` 与此匹配时插件才会执行（`all` 表示始终执行）。 |
+
+---
+
+## Vite 插件配置选项
+
+| 参数                | 类型                                     | 默认值                 | 描述                                                                                                                 |
+| ------------------- | ---------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `injectorFilename`  | `string`                                 | `index.html`           | 目标 HTML 文件名。在 Vite 中，`transformIndexHtml` 钩子通常作用于项目的主 HTML 文件。                                |
+| `version`           | `string`                                 | 从 `package.json` 获取 | 要注入的版本号。如果未提供，则尝试从项目的 `package.json` 中读取。                                                   |
+| `injectVersionJson` | `boolean`                                | `true`                 | 是否在构建输出的根目录生成 `version.json` 文件。                                                                     |
+| `environment`       | `'development' \| 'production' \| 'all'` | `production`           | 插件运行的环境。只有当 Vite 的模式 (`mode`) 或 `process.env.NODE_ENV` 与此匹配时插件才会执行（`all` 表示始终执行）。 |
 
 ---
 
@@ -199,7 +243,8 @@ unplugin-injector-version-html
 ├── src
 │   ├── index.ts                     # 版本检测功能入口
 │   ├── webpack.ts                   # Webpack 插件实现
-│   ├── types.ts                     # Webpack 插件类型定义
+│   ├── vite.ts                      # Vite 插件实现
+│   ├── types.ts                     # Webpack 和 Vite 插件共享的类型定义
 │   ├── core/
 │   │   ├── createInjectorVersion.ts # 注入版本号的核心逻辑
 │   │   ├── versionChecker.ts        # 版本检测功能实现和类型定义
@@ -243,12 +288,6 @@ unplugin-injector-version-html
     ```bash
     npm publish --access public
     ```
-
----
-
-## Vite 支持
-
-目前插件尚未支持 Vite，未来版本将会添加对 Vite 的支持，敬请期待。
 
 ---
 

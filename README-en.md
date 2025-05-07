@@ -50,9 +50,6 @@ pnpm add unplugin-injector-version-html --save-dev
           version: "1.0.0", // Custom version number; if not provided, defaults to version from package.json
           injectVersionJson: true, // Whether to generate a version.json file in the output directory
           environment: "production", // Environment for the plugin: 'development', 'production', or 'all'
-          callback: ({ version, compilation }) => {
-            console.log(`Version ${version} injected successfully!`);
-          },
         }),
       ],
     };
@@ -80,13 +77,23 @@ pnpm add unplugin-injector-version-html --save-dev
 
 ## Webpack Plugin Configuration Options
 
-| Option              | Type                                                              | Default             | Description                                                                                                                                       |
-| ------------------- | ----------------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `injectorFilename`  | `string`                                                          | `index.html`        | The HTML file to inject the version number into.                                                                                                  |
-| `version`           | `string`                                                          | From `package.json` | The version number to inject. If not provided, it attempts to read from the project's `package.json`.                                             |
-| `injectVersionJson` | `boolean`                                                         | `true`              | Whether to generate a `version.json` file in the root of the build output.                                                                        |
-| `environment`       | `'development' \| 'production' \| 'all'`                          | `production`        | The environment in which the plugin runs. The plugin will only execute if `process.env.NODE_ENV` matches this value (`all` means always execute). |
-| `callback`          | `(params: { version: string; compilation: Compilation }) => void` | `undefined`         | Optional callback function executed after the build is complete.                                                                                  |
+| Option              | Type                                     | Default             | Description                                                                                                                                       |
+| ------------------- | ---------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `injectorFilename`  | `string`                                 | `index.html`        | The HTML file to inject the version number into.                                                                                                  |
+| `version`           | `string`                                 | From `package.json` | The version number to inject. If not provided, it attempts to read from the project's `package.json`.                                             |
+| `injectVersionJson` | `boolean`                                | `true`              | Whether to generate a `version.json` file in the root of the build output.                                                                        |
+| `environment`       | `'development' \| 'production' \| 'all'` | `production`        | The environment in which the plugin runs. The plugin will only execute if `process.env.NODE_ENV` matches this value (`all` means always execute). |
+
+---
+
+## Vite Plugin Configuration Options
+
+| Option              | Type                                     | Default             | Description                                                                                                                                                      |
+| ------------------- | ---------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `injectorFilename`  | `string`                                 | `index.html`        | Target HTML file name. In Vite, the `transformIndexHtml` hook usually targets the project's main HTML file.                                                      |
+| `version`           | `string`                                 | From `package.json` | The version number to inject. If not provided, it attempts to read from the project's `package.json`.                                                            |
+| `injectVersionJson` | `boolean`                                | `true`              | Whether to generate a `version.json` file in the root of the build output.                                                                                       |
+| `environment`       | `'development' \| 'production' \| 'all'` | `production`        | The environment in which the plugin runs. The plugin will only execute if Vite's mode or `process.env.NODE_ENV` matches this value (`all` means always execute). |
 
 ---
 
@@ -244,12 +251,6 @@ unplugin-injector-version-html
     ```bash
     npm publish --access public
     ```
-
----
-
-## Vite Support
-
-Currently, the plugin does not support Vite. Support for Vite may be added in future versions. Stay tuned!
 
 ---
 
