@@ -7,6 +7,7 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
     callback,
     injectorFilename = "index.html",
     injectVersionJson = true, // 默认为 true，保持向后兼容
+    environment = "production",
     ...injectorVersionOptions
   } = options || {};
 
@@ -16,9 +17,8 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
 
   return {
     apply: (compiler: Compiler) => {
-      if (process.env.NODE_ENV !== "production") {
-        return;
-      }
+      // 确认环境
+      if (environment !== 'all' && process.env.NODE_ENV !== environment) return;
 
       // 判断是否是 Webpack 5
       const isWebpack5 = Boolean(compiler.webpack?.version?.startsWith("5."));
