@@ -6,6 +6,7 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
   const {
     callback,
     injectorFilename = "index.html",
+    injectVersionJson = true, // 默认为 true，保持向后兼容
     ...injectorVersionOptions
   } = options || {};
 
@@ -47,11 +48,25 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
             compilation.assets[injectorFilename] = new RawSource(updatedHtml);
           }
 
+          // 注入 version.json 文件 到 打包文件根目录
+          if (injectVersionJson) {
+            const versionJson = JSON.stringify({ version });
+            if (isWebpack5) {
+              const RawSource = compiler.webpack.sources.RawSource;
+              compilation.assets["version.json"] = new RawSource(versionJson);
+            } else {
+              // Webpack 4 及以下版本使用 webpack-sources
+              const RawSource = require("webpack-sources").RawSource;
+              compilation.assets["version.json"] = new RawSource(versionJson);
+            }
+          }
+
           // 这里可以对 compilation.assets 进行操作，比如删除某些文件
-          callback && callback({
-            version,
-            compilation
-          });
+          callback &&
+            callback({
+              version,
+              compilation,
+            });
           // 继续执行下一个插件
           __callback();
         }
