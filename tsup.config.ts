@@ -25,4 +25,10 @@ export default defineConfig([
   createConfig({
     entry: ["src/webpack.ts"], // 入口文件
   }),
+  // 检测版本 core
+  createConfig({
+    entry: ["src/core/versionChecker.ts"], // 入口文件
+    outDir: "dist", // 输出目录
+    platform: "neutral", // 平台：node 或 browser
+  }),
 ]);

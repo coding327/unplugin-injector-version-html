@@ -5,6 +5,9 @@
   "scripts": {
     "build": "tsup"
   },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "typesVersions": {
     "*": {
       "webpack": [
@@ -13,6 +16,10 @@
     }
   },
   "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
     "./webpack": {
       "import": "./dist/webpack.mjs",
       "require": "./dist/webpack.js"

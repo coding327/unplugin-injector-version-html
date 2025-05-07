@@ -9,7 +9,9 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
     ...injectorVersionOptions
   } = options || {};
 
-  const injectorVersion = createInjectorVersion(injectorVersionOptions);
+  const { version, injectorVersionFn } = createInjectorVersion(
+    injectorVersionOptions
+  );
 
   return {
     apply: (compiler: Compiler) => {
@@ -33,7 +35,7 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
             return;
           }
 
-          const updatedHtml = injectorVersion(indexHtml as string);
+          const updatedHtml = injectorVersionFn(indexHtml as string);
 
           // 更新 注入文件 的内容
           if (isWebpack5) {
@@ -46,7 +48,10 @@ function InjectorVersionPlugin(options: InjectorVersionOptions) {
           }
 
           // 这里可以对 compilation.assets 进行操作，比如删除某些文件
-          callback && callback(compilation);
+          callback && callback({
+            version,
+            compilation
+          });
           // 继续执行下一个插件
           __callback();
         }
