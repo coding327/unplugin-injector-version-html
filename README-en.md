@@ -175,9 +175,9 @@ if (
   typeof versionCheckerControls !== "function" && // Ensures it's the PollingControl object
   "start" in versionCheckerControls
 ) {
-  // versionCheckerControls.start(); // Starts automatically by default unless prevented in config
-  // versionCheckerControls.stop();
-  // versionCheckerControls.checkNow();
+  versionCheckerControls.start(); // Call start() to initiate polling
+  // versionCheckerControls.stop(); // You can also call stop() to halt polling when needed
+  // versionCheckerControls.checkNow(); // Or call checkNow() to trigger a manual check
   console.log("Polling status:", versionCheckerControls.isPolling);
 }
 ```

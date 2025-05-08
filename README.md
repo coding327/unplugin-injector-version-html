@@ -211,9 +211,9 @@ if (
   typeof versionCheckerControls !== "function" &&
   "start" in versionCheckerControls
 ) {
-  // versionCheckerControls.start(); // 默认会自动开始，除非在配置中阻止
-  // versionCheckerControls.stop();
-  // versionCheckerControls.checkNow();
+  versionCheckerControls.start(); // 调用 start() 来启动轮询
+  // versionCheckerControls.stop(); // 你也可以在需要时调用 stop() 来停止轮询
+  // versionCheckerControls.checkNow(); // 或者调用 checkNow() 手动触发一次检查
   console.log("轮询状态:", versionCheckerControls.isPolling);
 }
 ```
