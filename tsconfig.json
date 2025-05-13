@@ -15,4 +15,5 @@
     "skipLibCheck": true // Skip type checking of declaration files
   },
   "include": ["src/**/*"], // Include all TypeScript files in the src directory
+  "exclude": ["node_modules", "dist"]
 }
